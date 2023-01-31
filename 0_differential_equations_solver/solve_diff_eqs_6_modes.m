@@ -7,7 +7,7 @@ syms B1 B2 B3 B4 B5 B6
 %% Solve coupled differential equation system
 syms k12 k13 k14 k15 k16 k23 k24 k25 k26 k34 k35 k36 k45 k46 k56  w
 
-A1 = sym('A1(w)'); A2 = sym('A2(w)'); A3 = sym('A3(w)'); A4 = sym('A4(w)'); A5 = sym('A5(w)');  A6 = sym('A6(w)');
+syms A1(w) A2(w) A3(w) A4(w) A5(w) A6(w)
 
 % system
 aA1 = (-1*k12*subs(A2,w,w-(B1-B2))-1*k13*subs(A3,w,w-(B1-B3))-1*k14*subs(A4,w,w-(B1-B4))-1*k15*subs(A5,w,w-(B1-B5))-1*k16*subs(A6,w,w-(B1-B6)))/w;
@@ -20,70 +20,70 @@ aA6 = (-1*k16*subs(A1,w,w+(B1-B6))-1*k26*subs(A2,w,w+(B2-B6))-1*k36*subs(A3,w,w+
 disp('Eliminating...')
 %% E5 - E6
 %1 - Elimination of E1
-a2A2 = (subs(aA2,'A1(w+(B1-B2))',subs(aA1,w,w+(B1-B2))));
-a2A3 = (subs(aA3,'A1(w+(B1-B3))',subs(aA1,w,w+(B1-B3))));
-a2A4 = (subs(aA4,'A1(w+(B1-B4))',subs(aA1,w,w+(B1-B4))));
-a2A5 = (subs(aA5,'A1(w+(B1-B5))',subs(aA1,w,w+(B1-B5))));
-a2A6 = (subs(aA6,'A1(w+(B1-B6))',subs(aA1,w,w+(B1-B6))));
+a2A2 = (subs(aA2,A1(w+(B1-B2)),subs(aA1,w,w+(B1-B2))));
+a2A3 = (subs(aA3,A1(w+(B1-B3)),subs(aA1,w,w+(B1-B3))));
+a2A4 = (subs(aA4,A1(w+(B1-B4)),subs(aA1,w,w+(B1-B4))));
+a2A5 = (subs(aA5,A1(w+(B1-B5)),subs(aA1,w,w+(B1-B5))));
+a2A6 = (subs(aA6,A1(w+(B1-B6)),subs(aA1,w,w+(B1-B6))));
 
-coef_a2A2 = simplify(subs((a2A2-subs(a2A2,'A2(w)',0)),'A2(w)',1));
-coef_a2A3 = simplify(subs((a2A3-subs(a2A3,'A3(w)',0)),'A3(w)',1));
-coef_a2A4 = simplify(subs((a2A4-subs(a2A4,'A4(w)',0)),'A4(w)',1));
-coef_a2A5 = simplify(subs((a2A5-subs(a2A5,'A5(w)',0)),'A5(w)',1));
-coef_a2A6 = simplify(subs((a2A6-subs(a2A6,'A6(w)',0)),'A6(w)',1));
+coef_a2A2 = simplify(subs((a2A2-subs(a2A2,A2(w),0)),A2(w),1));
+coef_a2A3 = simplify(subs((a2A3-subs(a2A3,A3(w),0)),A3(w),1));
+coef_a2A4 = simplify(subs((a2A4-subs(a2A4,A4(w),0)),A4(w),1));
+coef_a2A5 = simplify(subs((a2A5-subs(a2A5,A5(w),0)),A5(w),1));
+coef_a2A6 = simplify(subs((a2A6-subs(a2A6,A6(w),0)),A6(w),1));
 
-a2A2 = subs(a2A2,'A2(w)',0) / (1-coef_a2A2);
-a2A3 = subs(a2A3,'A3(w)',0) / (1-coef_a2A3);
-a2A4 = subs(a2A4,'A4(w)',0) / (1-coef_a2A4);
-a2A5 = subs(a2A5,'A5(w)',0) / (1-coef_a2A5);
-a2A6 = subs(a2A6,'A6(w)',0) / (1-coef_a2A6);
+a2A2 = subs(a2A2,A2(w),0) / (1-coef_a2A2);
+a2A3 = subs(a2A3,A3(w),0) / (1-coef_a2A3);
+a2A4 = subs(a2A4,A4(w),0) / (1-coef_a2A4);
+a2A5 = subs(a2A5,A5(w),0) / (1-coef_a2A5);
+a2A6 = subs(a2A6,A6(w),0) / (1-coef_a2A6);
 
 %2 - Elimination of E2
-a3A3 = (subs(a2A3,'A2(w+(B2-B3))',subs(a2A2,w,w+(B2-B3))));
-a3A4 = (subs(a2A4,'A2(w+(B2-B4))',subs(a2A2,w,w+(B2-B4))));
-a3A5 = (subs(a2A5,'A2(w+(B2-B5))',subs(a2A2,w,w+(B2-B5))));
-a3A6 = (subs(a2A6,'A2(w+(B2-B6))',subs(a2A2,w,w+(B2-B6))));
+a3A3 = (subs(a2A3,A2(w+(B2-B3)),subs(a2A2,w,w+(B2-B3))));
+a3A4 = (subs(a2A4,A2(w+(B2-B4)),subs(a2A2,w,w+(B2-B4))));
+a3A5 = (subs(a2A5,A2(w+(B2-B5)),subs(a2A2,w,w+(B2-B5))));
+a3A6 = (subs(a2A6,A2(w+(B2-B6)),subs(a2A2,w,w+(B2-B6))));
 
-coef_a3A3 = simplify(subs((a3A3-subs(a3A3,'A3(w)',0)),'A3(w)',1));
-coef_a3A4 = simplify(subs((a3A4-subs(a3A4,'A4(w)',0)),'A4(w)',1));
-coef_a3A5 = simplify(subs((a3A5-subs(a3A5,'A5(w)',0)),'A5(w)',1));
-coef_a3A6 = simplify(subs((a3A6-subs(a3A6,'A6(w)',0)),'A6(w)',1));
+coef_a3A3 = simplify(subs((a3A3-subs(a3A3,A3(w),0)),A3(w),1));
+coef_a3A4 = simplify(subs((a3A4-subs(a3A4,A4(w),0)),A4(w),1));
+coef_a3A5 = simplify(subs((a3A5-subs(a3A5,A5(w),0)),A5(w),1));
+coef_a3A6 = simplify(subs((a3A6-subs(a3A6,A6(w),0)),A6(w),1));
 
-a3A3 = simplify(subs(a3A3,'A3(w)',0) / (1-coef_a3A3));
-a3A4 = simplify(subs(a3A4,'A4(w)',0) / (1-coef_a3A4));
-a3A5 = simplify(subs(a3A5,'A5(w)',0) / (1-coef_a3A5));
-a3A6 = simplify(subs(a3A6,'A6(w)',0) / (1-coef_a3A6));
+a3A3 = simplify(subs(a3A3,A3(w),0) / (1-coef_a3A3));
+a3A4 = simplify(subs(a3A4,A4(w),0) / (1-coef_a3A4));
+a3A5 = simplify(subs(a3A5,A5(w),0) / (1-coef_a3A5));
+a3A6 = simplify(subs(a3A6,A6(w),0) / (1-coef_a3A6));
 
 %3 - Elimination of E3
-a4A4 = (subs(a3A4,'A3(w+(B3-B4))',subs(a3A3,w,w+(B3-B4))));
-a4A5 = (subs(a3A5,'A3(w+(B3-B5))',subs(a3A3,w,w+(B3-B5))));
-a4A6 = (subs(a3A6,'A3(w+(B3-B6))',subs(a3A3,w,w+(B3-B6))));
+a4A4 = (subs(a3A4,A3(w+(B3-B4)),subs(a3A3,w,w+(B3-B4))));
+a4A5 = (subs(a3A5,A3(w+(B3-B5)),subs(a3A3,w,w+(B3-B5))));
+a4A6 = (subs(a3A6,A3(w+(B3-B6)),subs(a3A3,w,w+(B3-B6))));
 
-coef_a4A4 = simplify(subs((a4A4-subs(a4A4,'A4(w)',0)),'A4(w)',1));
-coef_a4A5 = simplify(subs((a4A5-subs(a4A5,'A5(w)',0)),'A5(w)',1));
-coef_a4A6 = simplify(subs((a4A6-subs(a4A6,'A6(w)',0)),'A6(w)',1));
+coef_a4A4 = simplify(subs((a4A4-subs(a4A4,A4(w),0)),A4(w),1));
+coef_a4A5 = simplify(subs((a4A5-subs(a4A5,A5(w),0)),A5(w),1));
+coef_a4A6 = simplify(subs((a4A6-subs(a4A6,A6(w),0)),A6(w),1));
 
-a4A4 = simplify(subs(a4A4,'A4(w)',0) / (1-coef_a4A4));
-a4A5 = simplify(subs(a4A5,'A5(w)',0) / (1-coef_a4A5));
-a4A6 = simplify(subs(a4A6,'A6(w)',0) / (1-coef_a4A6));
+a4A4 = simplify(subs(a4A4,A4(w),0) / (1-coef_a4A4));
+a4A5 = simplify(subs(a4A5,A5(w),0) / (1-coef_a4A5));
+a4A6 = simplify(subs(a4A6,A6(w),0) / (1-coef_a4A6));
 
 %4 - Elimination of E4
-a5A5 = (subs(collect(a4A5,'A4(w+(B4-B5))'),'A4(w+(B4-B5))',subs(a4A4,w,w+(B4-B5))));
-a5A6 = (subs(collect(a4A6,'A4(w+(B4-B6))'),'A4(w+(B4-B6))',subs(a4A4,w,w+(B4-B6))));
+a5A5 = (subs(collect(a4A5,A4(w+(B4-B5))),A4(w+(B4-B5)),subs(a4A4,w,w+(B4-B5))));
+a5A6 = (subs(collect(a4A6,A4(w+(B4-B6))),A4(w+(B4-B6)),subs(a4A4,w,w+(B4-B6))));
 
-coef_a5A5 = simplify(subs((a5A5-subs(a5A5,'A5(w)',0)),'A5(w)',1));
-coef_a5A6 = simplify(subs((a5A6-subs(a5A6,'A6(w)',0)),'A6(w)',1));
+coef_a5A5 = simplify(subs((a5A5-subs(a5A5,A5(w),0)),A5(w),1));
+coef_a5A6 = simplify(subs((a5A6-subs(a5A6,A6(w),0)),A6(w),1));
 
-a5A5 = simplify(subs(collect(a5A5,'A5(w)'),'A5(w)',0) / (1-coef_a5A5));
-a5A6 = simplify(subs(collect(a5A6,'A6(w)'),'A6(w)',0) / (1-coef_a5A6));
+a5A5 = simplify(subs(collect(a5A5,A5(w)),A5(w),0) / (1-coef_a5A5));
+a5A6 = simplify(subs(collect(a5A6,A6(w)),A6(w),0) / (1-coef_a5A6));
 
 %5
-a6A5 = (subs(collect(a5A5,'A6(w-(B5-B6))'),'A6(w-(B5-B6))',subs(a5A6,w,w-(B5-B6))));
-a6A6 = (subs(collect(a5A6,'A5(w+(B5-B6))'),'A5(w+(B5-B6))',subs(a5A5,w,w+(B5-B6))));
+a6A5 = (subs(collect(a5A5,A6(w-(B5-B6))),A6(w-(B5-B6)),subs(a5A6,w,w-(B5-B6))));
+a6A6 = (subs(collect(a5A6,A5(w+(B5-B6))),A5(w+(B5-B6)),subs(a5A5,w,w+(B5-B6))));
 
 %end
-[a,b] = numden(simplify(subs(a6A5,'A5(w)',1)));
-[c,d] = numden(simplify(subs(a6A6,'A6(w)',1)));
+[a,b] = numden(simplify(subs(a6A5,A5(w),1)));
+[c,d] = numden(simplify(subs(a6A6,A6(w),1)));
 
 eq5 = b - a;
 eq6 = d - c;
@@ -94,70 +94,70 @@ eq6 = d - c;
 disp('E5 and E6 calculated')
 %% E1 - E2
 %1 - Elimination of E3
-a2A1 = (subs(aA1,'A3(w-(B1-B3))',subs(aA3,w,w-(B1-B3))));
-a2A2 = (subs(aA2,'A3(w-(B2-B3))',subs(aA3,w,w-(B2-B3))));
-a2A4 = (subs(aA4,'A3(w+(B3-B4))',subs(aA3,w,w+(B3-B4))));
-a2A5 = (subs(aA5,'A3(w+(B3-B5))',subs(aA3,w,w+(B3-B5))));
-a2A6 = (subs(aA6,'A3(w+(B3-B6))',subs(aA3,w,w+(B3-B6))));
+a2A1 = (subs(aA1,A3(w-(B1-B3)),subs(aA3,w,w-(B1-B3))));
+a2A2 = (subs(aA2,A3(w-(B2-B3)),subs(aA3,w,w-(B2-B3))));
+a2A4 = (subs(aA4,A3(w+(B3-B4)),subs(aA3,w,w+(B3-B4))));
+a2A5 = (subs(aA5,A3(w+(B3-B5)),subs(aA3,w,w+(B3-B5))));
+a2A6 = (subs(aA6,A3(w+(B3-B6)),subs(aA3,w,w+(B3-B6))));
 
-coef_a2A1 = simplify(subs((a2A1-subs(a2A1,'A1(w)',0)),'A1(w)',1));
-coef_a2A2 = simplify(subs((a2A2-subs(a2A2,'A2(w)',0)),'A2(w)',1));
-coef_a2A4 = simplify(subs((a2A4-subs(a2A4,'A4(w)',0)),'A4(w)',1));
-coef_a2A5 = simplify(subs((a2A5-subs(a2A5,'A5(w)',0)),'A5(w)',1));
-coef_a2A6 = simplify(subs((a2A6-subs(a2A6,'A6(w)',0)),'A6(w)',1));
+coef_a2A1 = simplify(subs((a2A1-subs(a2A1,A1(w),0)),A1(w),1));
+coef_a2A2 = simplify(subs((a2A2-subs(a2A2,A2(w),0)),A2(w),1));
+coef_a2A4 = simplify(subs((a2A4-subs(a2A4,A4(w),0)),A4(w),1));
+coef_a2A5 = simplify(subs((a2A5-subs(a2A5,A5(w),0)),A5(w),1));
+coef_a2A6 = simplify(subs((a2A6-subs(a2A6,A6(w),0)),A6(w),1));
 
-a2A1 = subs(a2A1,'A1(w)',0) / (1-coef_a2A1);
-a2A2 = subs(a2A2,'A2(w)',0) / (1-coef_a2A2);
-a2A4 = subs(a2A4,'A4(w)',0) / (1-coef_a2A4);
-a2A5 = subs(a2A5,'A5(w)',0) / (1-coef_a2A5);
-a2A6 = subs(a2A6,'A6(w)',0) / (1-coef_a2A6);
+a2A1 = subs(a2A1,A1(w),0) / (1-coef_a2A1);
+a2A2 = subs(a2A2,A2(w),0) / (1-coef_a2A2);
+a2A4 = subs(a2A4,A4(w),0) / (1-coef_a2A4);
+a2A5 = subs(a2A5,A5(w),0) / (1-coef_a2A5);
+a2A6 = subs(a2A6,A6(w),0) / (1-coef_a2A6);
 
 %2 - Elimination of E4
-a3A1 = (subs(a2A1,'A4(w-(B1-B4))',subs(a2A4,w,w-(B1-B4))));
-a3A2 = (subs(a2A2,'A4(w-(B2-B4))',subs(a2A4,w,w-(B2-B4))));
-a3A5 = (subs(a2A5,'A4(w+(B4-B5))',subs(a2A4,w,w+(B4-B5))));
-a3A6 = (subs(a2A6,'A4(w+(B4-B6))',subs(a2A4,w,w+(B4-B6))));
+a3A1 = (subs(a2A1,A4(w-(B1-B4)),subs(a2A4,w,w-(B1-B4))));
+a3A2 = (subs(a2A2,A4(w-(B2-B4)),subs(a2A4,w,w-(B2-B4))));
+a3A5 = (subs(a2A5,A4(w+(B4-B5)),subs(a2A4,w,w+(B4-B5))));
+a3A6 = (subs(a2A6,A4(w+(B4-B6)),subs(a2A4,w,w+(B4-B6))));
 
-coef_a3A1 = simplify(subs((a3A1-subs(a3A1,'A1(w)',0)),'A1(w)',1));
-coef_a3A2 = simplify(subs((a3A2-subs(a3A2,'A2(w)',0)),'A2(w)',1));
-coef_a3A5 = simplify(subs((a3A5-subs(a3A5,'A5(w)',0)),'A5(w)',1));
-coef_a3A6 = simplify(subs((a3A6-subs(a3A6,'A6(w)',0)),'A6(w)',1));
+coef_a3A1 = simplify(subs((a3A1-subs(a3A1,A1(w),0)),A1(w),1));
+coef_a3A2 = simplify(subs((a3A2-subs(a3A2,A2(w),0)),A2(w),1));
+coef_a3A5 = simplify(subs((a3A5-subs(a3A5,A5(w),0)),A5(w),1));
+coef_a3A6 = simplify(subs((a3A6-subs(a3A6,A6(w),0)),A6(w),1));
 
-a3A1 = simplify(subs(a3A1,'A1(w)',0) / (1-coef_a3A1));
-a3A2 = simplify(subs(a3A2,'A2(w)',0) / (1-coef_a3A2));
-a3A5 = simplify(subs(a3A5,'A5(w)',0) / (1-coef_a3A5));
-a3A6 = simplify(subs(a3A6,'A6(w)',0) / (1-coef_a3A6));
+a3A1 = simplify(subs(a3A1,A1(w),0) / (1-coef_a3A1));
+a3A2 = simplify(subs(a3A2,A2(w),0) / (1-coef_a3A2));
+a3A5 = simplify(subs(a3A5,A5(w),0) / (1-coef_a3A5));
+a3A6 = simplify(subs(a3A6,A6(w),0) / (1-coef_a3A6));
 
 %3 - Elimination of E5
-a4A1 = (subs(a3A1,'A5(w-(B1-B5))',subs(a3A5,w,w-(B1-B5))));
-a4A2 = (subs(a3A2,'A5(w-(B2-B5))',subs(a3A5,w,w-(B2-B5))));
-a4A6 = (subs(a3A6,'A5(w+(B5-B6))',subs(a3A5,w,w+(B5-B6))));
+a4A1 = (subs(a3A1,A5(w-(B1-B5)),subs(a3A5,w,w-(B1-B5))));
+a4A2 = (subs(a3A2,A5(w-(B2-B5)),subs(a3A5,w,w-(B2-B5))));
+a4A6 = (subs(a3A6,A5(w+(B5-B6)),subs(a3A5,w,w+(B5-B6))));
 
-coef_a4A1 = simplify(subs((a4A1-subs(a4A1,'A1(w)',0)),'A1(w)',1));
-coef_a4A2 = simplify(subs((a4A2-subs(a4A2,'A2(w)',0)),'A2(w)',1));
-coef_a4A6 = simplify(subs((a4A6-subs(a4A6,'A6(w)',0)),'A6(w)',1));
+coef_a4A1 = simplify(subs((a4A1-subs(a4A1,A1(w),0)),A1(w),1));
+coef_a4A2 = simplify(subs((a4A2-subs(a4A2,A2(w),0)),A2(w),1));
+coef_a4A6 = simplify(subs((a4A6-subs(a4A6,A6(w),0)),A6(w),1));
 
-a4A1 = simplify(subs(a4A1,'A1(w)',0) / (1-coef_a4A1));
-a4A2 = simplify(subs(a4A2,'A2(w)',0) / (1-coef_a4A2));
-a4A6 = simplify(subs(a4A6,'A6(w)',0) / (1-coef_a4A6));
+a4A1 = simplify(subs(a4A1,A1(w),0) / (1-coef_a4A1));
+a4A2 = simplify(subs(a4A2,A2(w),0) / (1-coef_a4A2));
+a4A6 = simplify(subs(a4A6,A6(w),0) / (1-coef_a4A6));
 
 %4 - Elimination of E6
-a5A1 = (subs(collect(a4A1,'A6(w-(B1-B6))'),'A6(w-(B1-B6))',subs(a4A6,w,w-(B1-B6))));
-a5A2 = (subs(collect(a4A2,'A6(w-(B2-B6))'),'A6(w-(B2-B6))',subs(a4A6,w,w-(B2-B6))));
+a5A1 = (subs(collect(a4A1,A6(w-(B1-B6))),A6(w-(B1-B6)),subs(a4A6,w,w-(B1-B6))));
+a5A2 = (subs(collect(a4A2,A6(w-(B2-B6))),A6(w-(B2-B6)),subs(a4A6,w,w-(B2-B6))));
 
-coef_a5A1 = simplify(subs((a5A1-subs(a5A1,'A1(w)',0)),'A1(w)',1));
-coef_a5A2 = simplify(subs((a5A2-subs(a5A2,'A2(w)',0)),'A2(w)',1));
+coef_a5A1 = simplify(subs((a5A1-subs(a5A1,A1(w),0)),A1(w),1));
+coef_a5A2 = simplify(subs((a5A2-subs(a5A2,A2(w),0)),A2(w),1));
 
-a5A1 = simplify(subs(a5A1,'A1(w)',0) / (1-coef_a5A1));
-a5A2 = simplify(subs(a5A2,'A2(w)',0) / (1-coef_a5A2));
+a5A1 = simplify(subs(a5A1,A1(w),0) / (1-coef_a5A1));
+a5A2 = simplify(subs(a5A2,A2(w),0) / (1-coef_a5A2));
 
 %5
-a6A1 = (subs(collect(a5A1,'A2(w-(B1-B2))'),'A2(w-(B1-B2))',subs(a5A2,w,w-(B1-B2))));
-a6A2 = (subs(collect(a5A2,'A1(w+(B1-B2))'),'A1(w+(B1-B2))',subs(a5A1,w,w+(B1-B2))));
+a6A1 = (subs(collect(a5A1,A2(w-(B1-B2))),A2(w-(B1-B2)),subs(a5A2,w,w-(B1-B2))));
+a6A2 = (subs(collect(a5A2,A1(w+(B1-B2))),A1(w+(B1-B2)),subs(a5A1,w,w+(B1-B2))));
 
 %end
-[a,b] = numden(simplify(subs(a6A1,'A1(w)',1)));
-[c,d] = numden(simplify(subs(a6A2,'A2(w)',1)));
+[a,b] = numden(simplify(subs(a6A1,A1(w),1)));
+[c,d] = numden(simplify(subs(a6A2,A2(w),1)));
 
 eq1 = b - a;
 eq2 = d - c;
@@ -168,147 +168,147 @@ eq2 = d - c;
 disp('E1 and E2 calculated')
 %% E3 - E4
 %1 - Elimination of E1
-a2A2 = (subs(aA2,'A1(w+(B1-B2))',subs(aA1,w,w+(B1-B2))));
-a2A3 = (subs(aA3,'A1(w+(B1-B3))',subs(aA1,w,w+(B1-B3))));
-a2A4 = (subs(aA4,'A1(w+(B1-B4))',subs(aA1,w,w+(B1-B4))));
-a2A5 = (subs(aA5,'A1(w+(B1-B5))',subs(aA1,w,w+(B1-B5))));
-a2A6 = (subs(aA6,'A1(w+(B1-B6))',subs(aA1,w,w+(B1-B6))));
+a2A2 = (subs(aA2,A1(w+(B1-B2)),subs(aA1,w,w+(B1-B2))));
+a2A3 = (subs(aA3,A1(w+(B1-B3)),subs(aA1,w,w+(B1-B3))));
+a2A4 = (subs(aA4,A1(w+(B1-B4)),subs(aA1,w,w+(B1-B4))));
+a2A5 = (subs(aA5,A1(w+(B1-B5)),subs(aA1,w,w+(B1-B5))));
+a2A6 = (subs(aA6,A1(w+(B1-B6)),subs(aA1,w,w+(B1-B6))));
 
-coef_a2A2 = simplify(subs((a2A2-subs(a2A2,'A2(w)',0)),'A2(w)',1));
-coef_a2A3 = simplify(subs((a2A3-subs(a2A3,'A3(w)',0)),'A3(w)',1));
-coef_a2A4 = simplify(subs((a2A4-subs(a2A4,'A4(w)',0)),'A4(w)',1));
-coef_a2A5 = simplify(subs((a2A5-subs(a2A5,'A5(w)',0)),'A5(w)',1));
-coef_a2A6 = simplify(subs((a2A6-subs(a2A6,'A6(w)',0)),'A6(w)',1));
+coef_a2A2 = simplify(subs((a2A2-subs(a2A2,A2(w),0)),A2(w),1));
+coef_a2A3 = simplify(subs((a2A3-subs(a2A3,A3(w),0)),A3(w),1));
+coef_a2A4 = simplify(subs((a2A4-subs(a2A4,A4(w),0)),A4(w),1));
+coef_a2A5 = simplify(subs((a2A5-subs(a2A5,A5(w),0)),A5(w),1));
+coef_a2A6 = simplify(subs((a2A6-subs(a2A6,A6(w),0)),A6(w),1));
 
-a2A2 = subs(a2A2,'A2(w)',0) / (1-coef_a2A2);
-a2A3 = subs(a2A3,'A3(w)',0) / (1-coef_a2A3);
-a2A4 = subs(a2A4,'A4(w)',0) / (1-coef_a2A4);
-a2A5 = subs(a2A5,'A5(w)',0) / (1-coef_a2A5);
-a2A6 = subs(a2A6,'A6(w)',0) / (1-coef_a2A6);
+a2A2 = subs(a2A2,A2(w),0) / (1-coef_a2A2);
+a2A3 = subs(a2A3,A3(w),0) / (1-coef_a2A3);
+a2A4 = subs(a2A4,A4(w),0) / (1-coef_a2A4);
+a2A5 = subs(a2A5,A5(w),0) / (1-coef_a2A5);
+a2A6 = subs(a2A6,A6(w),0) / (1-coef_a2A6);
 
 %2 - Elimination of E2
-a3A3 = (subs(a2A3,'A2(w+(B2-B3))',subs(a2A2,w,w+(B2-B3))));
-a3A4 = (subs(a2A4,'A2(w+(B2-B4))',subs(a2A2,w,w+(B2-B4))));
-a3A5 = (subs(a2A5,'A2(w+(B2-B5))',subs(a2A2,w,w+(B2-B5))));
-a3A6 = (subs(a2A6,'A2(w+(B2-B6))',subs(a2A2,w,w+(B2-B6))));
+a3A3 = (subs(a2A3,A2(w+(B2-B3)),subs(a2A2,w,w+(B2-B3))));
+a3A4 = (subs(a2A4,A2(w+(B2-B4)),subs(a2A2,w,w+(B2-B4))));
+a3A5 = (subs(a2A5,A2(w+(B2-B5)),subs(a2A2,w,w+(B2-B5))));
+a3A6 = (subs(a2A6,A2(w+(B2-B6)),subs(a2A2,w,w+(B2-B6))));
 
-coef_a3A3 = simplify(subs((a3A3-subs(a3A3,'A3(w)',0)),'A3(w)',1));
-coef_a3A4 = simplify(subs((a3A4-subs(a3A4,'A4(w)',0)),'A4(w)',1));
-coef_a3A5 = simplify(subs((a3A5-subs(a3A5,'A5(w)',0)),'A5(w)',1));
-coef_a3A6 = simplify(subs((a3A6-subs(a3A6,'A6(w)',0)),'A6(w)',1));
+coef_a3A3 = simplify(subs((a3A3-subs(a3A3,A3(w),0)),A3(w),1));
+coef_a3A4 = simplify(subs((a3A4-subs(a3A4,A4(w),0)),A4(w),1));
+coef_a3A5 = simplify(subs((a3A5-subs(a3A5,A5(w),0)),A5(w),1));
+coef_a3A6 = simplify(subs((a3A6-subs(a3A6,A6(w),0)),A6(w),1));
 
-a3A3 = simplify(subs(a3A3,'A3(w)',0) / (1-coef_a3A3));
-a3A4 = simplify(subs(a3A4,'A4(w)',0) / (1-coef_a3A4));
-a3A5 = simplify(subs(a3A5,'A5(w)',0) / (1-coef_a3A5));
-a3A6 = simplify(subs(a3A6,'A6(w)',0) / (1-coef_a3A6));
+a3A3 = simplify(subs(a3A3,A3(w),0) / (1-coef_a3A3));
+a3A4 = simplify(subs(a3A4,A4(w),0) / (1-coef_a3A4));
+a3A5 = simplify(subs(a3A5,A5(w),0) / (1-coef_a3A5));
+a3A6 = simplify(subs(a3A6,A6(w),0) / (1-coef_a3A6));
 
 %3 - Elimination of E5
-a4A3 = (subs(a3A3,'A5(w-(B3-B5))',subs(a3A5,w,w-(B3-B5))));
-a4A4 = (subs(a3A4,'A5(w-(B4-B5))',subs(a3A5,w,w-(B4-B5))));
-a4A6 = (subs(a3A6,'A5(w+(B5-B6))',subs(a3A5,w,w+(B5-B6))));
+a4A3 = (subs(a3A3,A5(w-(B3-B5)),subs(a3A5,w,w-(B3-B5))));
+a4A4 = (subs(a3A4,A5(w-(B4-B5)),subs(a3A5,w,w-(B4-B5))));
+a4A6 = (subs(a3A6,A5(w+(B5-B6)),subs(a3A5,w,w+(B5-B6))));
 
-coef_a4A3 = simplify(subs((a4A3-subs(a4A3,'A3(w)',0)),'A3(w)',1));
-coef_a4A4 = simplify(subs((a4A4-subs(a4A4,'A4(w)',0)),'A4(w)',1));
-coef_a4A6 = simplify(subs((a4A6-subs(a4A6,'A6(w)',0)),'A6(w)',1));
+coef_a4A3 = simplify(subs((a4A3-subs(a4A3,A3(w),0)),A3(w),1));
+coef_a4A4 = simplify(subs((a4A4-subs(a4A4,A4(w),0)),A4(w),1));
+coef_a4A6 = simplify(subs((a4A6-subs(a4A6,A6(w),0)),A6(w),1));
 
-a4A3 = simplify(subs(a4A3,'A3(w)',0) / (1-coef_a4A3));
-a4A4 = simplify(subs(a4A4,'A4(w)',0) / (1-coef_a4A4));
-a4A6 = simplify(subs(a4A6,'A6(w)',0) / (1-coef_a4A6));
+a4A3 = simplify(subs(a4A3,A3(w),0) / (1-coef_a4A3));
+a4A4 = simplify(subs(a4A4,A4(w),0) / (1-coef_a4A4));
+a4A6 = simplify(subs(a4A6,A6(w),0) / (1-coef_a4A6));
 
 %4 - Elimination of E6
-a5A3 = (subs(collect(a4A3,'A6(w-(B3-B6))'),'A6(w-(B3-B6))',subs(a4A6,w,w-(B3-B6))));
-a5A4 = (subs(collect(a4A4,'A6(w-(B4-B6))'),'A6(w-(B4-B6))',subs(a4A6,w,w-(B4-B6))));
+a5A3 = (subs(collect(a4A3,A6(w-(B3-B6))),A6(w-(B3-B6)),subs(a4A6,w,w-(B3-B6))));
+a5A4 = (subs(collect(a4A4,A6(w-(B4-B6))),A6(w-(B4-B6)),subs(a4A6,w,w-(B4-B6))));
 
-coef_a5A3 = simplify(subs((a5A3-subs(a5A3,'A3(w)',0)),'A3(w)',1));
-coef_a5A4 = simplify(subs((a5A4-subs(a5A4,'A4(w)',0)),'A4(w)',1));
+coef_a5A3 = simplify(subs((a5A3-subs(a5A3,A3(w),0)),A3(w),1));
+coef_a5A4 = simplify(subs((a5A4-subs(a5A4,A4(w),0)),A4(w),1));
 
-a5A3 = simplify(subs(a5A3,'A3(w)',0) / (1-coef_a5A3));
-a5A4 = simplify(subs(a5A4,'A4(w)',0) / (1-coef_a5A4));
+a5A3 = simplify(subs(a5A3,A3(w),0) / (1-coef_a5A3));
+a5A4 = simplify(subs(a5A4,A4(w),0) / (1-coef_a5A4));
 
 %5
-a6A3 = (subs(collect(a5A3,'A4(w-(B3-B4))'),'A4(w-(B3-B4))',subs(a5A4,w,w-(B3-B4))));
-a6A4 = (subs(collect(a5A4,'A3(w+(B3-B4))'),'A3(w+(B3-B4))',subs(a5A3,w,w+(B3-B4))));
+a6A3 = (subs(collect(a5A3,A4(w-(B3-B4))),A4(w-(B3-B4)),subs(a5A4,w,w-(B3-B4))));
+a6A4 = (subs(collect(a5A4,A3(w+(B3-B4))),A3(w+(B3-B4)),subs(a5A3,w,w+(B3-B4))));
 
 %end
-[a,b] = numden(simplify(subs(a6A3,'A3(w)',1)));
-[c,d] = numden(simplify(subs(a6A4,'A4(w)',1)));
+[a,b] = numden(simplify(subs(a6A3,A3(w),1)));
+[c,d] = numden(simplify(subs(a6A4,A4(w),1)));
 
 eq3 = b - a;
 eq4 = d - c;
 
 [XC3,T3] = coeffs(b-a,w);
 [XC4,T4] = coeffs(d-c,w);
-%     eq3 = (1-subs(a6A3,'A3(w)',1));
-%     eq4 = (1-subs(a6A4,'A4(w)',1));
+%     eq3 = (1-subs(a6A3,A3(w),1));
+%     eq4 = (1-subs(a6A4,A4(w),1));
 disp('E3 and E4 calculated')
 % save eqs
 
 %% E1 - E6
 %1 - Elimination of E3
-a2A1 = (subs(aA1,'A3(w-(B1-B3))',subs(aA3,w,w-(B1-B3))));
-a2A2 = (subs(aA2,'A3(w-(B2-B3))',subs(aA3,w,w-(B2-B3))));
-a2A4 = (subs(aA4,'A3(w+(B3-B4))',subs(aA3,w,w+(B3-B4))));
-a2A5 = (subs(aA5,'A3(w+(B3-B5))',subs(aA3,w,w+(B3-B5))));
-a2A6 = (subs(aA6,'A3(w+(B3-B6))',subs(aA3,w,w+(B3-B6))));
+a2A1 = (subs(aA1,A3(w-(B1-B3)),subs(aA3,w,w-(B1-B3))));
+a2A2 = (subs(aA2,A3(w-(B2-B3)),subs(aA3,w,w-(B2-B3))));
+a2A4 = (subs(aA4,A3(w+(B3-B4)),subs(aA3,w,w+(B3-B4))));
+a2A5 = (subs(aA5,A3(w+(B3-B5)),subs(aA3,w,w+(B3-B5))));
+a2A6 = (subs(aA6,A3(w+(B3-B6)),subs(aA3,w,w+(B3-B6))));
 
-coef_a2A1 = simplify(subs((a2A1-subs(a2A1,'A1(w)',0)),'A1(w)',1));
-coef_a2A2 = simplify(subs((a2A2-subs(a2A2,'A2(w)',0)),'A2(w)',1));
-coef_a2A4 = simplify(subs((a2A4-subs(a2A4,'A4(w)',0)),'A4(w)',1));
-coef_a2A5 = simplify(subs((a2A5-subs(a2A5,'A5(w)',0)),'A5(w)',1));
-coef_a2A6 = simplify(subs((a2A6-subs(a2A6,'A6(w)',0)),'A6(w)',1));
+coef_a2A1 = simplify(subs((a2A1-subs(a2A1,A1(w),0)),A1(w),1));
+coef_a2A2 = simplify(subs((a2A2-subs(a2A2,A2(w),0)),A2(w),1));
+coef_a2A4 = simplify(subs((a2A4-subs(a2A4,A4(w),0)),A4(w),1));
+coef_a2A5 = simplify(subs((a2A5-subs(a2A5,A5(w),0)),A5(w),1));
+coef_a2A6 = simplify(subs((a2A6-subs(a2A6,A6(w),0)),A6(w),1));
 
-a2A1 = subs(a2A1,'A1(w)',0) / (1-coef_a2A1);
-a2A2 = subs(a2A2,'A2(w)',0) / (1-coef_a2A2);
-a2A4 = subs(a2A4,'A4(w)',0) / (1-coef_a2A4);
-a2A5 = subs(a2A5,'A5(w)',0) / (1-coef_a2A5);
-a2A6 = subs(a2A6,'A6(w)',0) / (1-coef_a2A6);
+a2A1 = subs(a2A1,A1(w),0) / (1-coef_a2A1);
+a2A2 = subs(a2A2,A2(w),0) / (1-coef_a2A2);
+a2A4 = subs(a2A4,A4(w),0) / (1-coef_a2A4);
+a2A5 = subs(a2A5,A5(w),0) / (1-coef_a2A5);
+a2A6 = subs(a2A6,A6(w),0) / (1-coef_a2A6);
 
 %2 - Elimination of E4
-a3A1 = (subs(a2A1,'A4(w-(B1-B4))',subs(a2A4,w,w-(B1-B4))));
-a3A2 = (subs(a2A2,'A4(w-(B2-B4))',subs(a2A4,w,w-(B2-B4))));
-a3A5 = (subs(a2A5,'A4(w+(B4-B5))',subs(a2A4,w,w+(B4-B5))));
-a3A6 = (subs(a2A6,'A4(w+(B4-B6))',subs(a2A4,w,w+(B4-B6))));
+a3A1 = (subs(a2A1,A4(w-(B1-B4)),subs(a2A4,w,w-(B1-B4))));
+a3A2 = (subs(a2A2,A4(w-(B2-B4)),subs(a2A4,w,w-(B2-B4))));
+a3A5 = (subs(a2A5,A4(w+(B4-B5)),subs(a2A4,w,w+(B4-B5))));
+a3A6 = (subs(a2A6,A4(w+(B4-B6)),subs(a2A4,w,w+(B4-B6))));
 
-coef_a3A1 = simplify(subs((a3A1-subs(a3A1,'A1(w)',0)),'A1(w)',1));
-coef_a3A2 = simplify(subs((a3A2-subs(a3A2,'A2(w)',0)),'A2(w)',1));
-coef_a3A5 = simplify(subs((a3A5-subs(a3A5,'A5(w)',0)),'A5(w)',1));
-coef_a3A6 = simplify(subs((a3A6-subs(a3A6,'A6(w)',0)),'A6(w)',1));
+coef_a3A1 = simplify(subs((a3A1-subs(a3A1,A1(w),0)),A1(w),1));
+coef_a3A2 = simplify(subs((a3A2-subs(a3A2,A2(w),0)),A2(w),1));
+coef_a3A5 = simplify(subs((a3A5-subs(a3A5,A5(w),0)),A5(w),1));
+coef_a3A6 = simplify(subs((a3A6-subs(a3A6,A6(w),0)),A6(w),1));
 
-a3A1 = simplify(subs(a3A1,'A1(w)',0) / (1-coef_a3A1));
-a3A2 = simplify(subs(a3A2,'A2(w)',0) / (1-coef_a3A2));
-a3A5 = simplify(subs(a3A5,'A5(w)',0) / (1-coef_a3A5));
-a3A6 = simplify(subs(a3A6,'A6(w)',0) / (1-coef_a3A6));
+a3A1 = simplify(subs(a3A1,A1(w),0) / (1-coef_a3A1));
+a3A2 = simplify(subs(a3A2,A2(w),0) / (1-coef_a3A2));
+a3A5 = simplify(subs(a3A5,A5(w),0) / (1-coef_a3A5));
+a3A6 = simplify(subs(a3A6,A6(w),0) / (1-coef_a3A6));
 
 %3 - Elimination of E2
-a4A1 = (subs(a3A1,'A2(w-(B1-B2))',subs(a3A2,w,w-(B1-B2))));
-a4A5 = (subs(a3A5,'A2(w+(B2-B5))',subs(a3A2,w,w+(B2-B5))));
-a4A6 = (subs(a3A6,'A2(w+(B2-B6))',subs(a3A2,w,w+(B2-B6))));
+a4A1 = (subs(a3A1,A2(w-(B1-B2)),subs(a3A2,w,w-(B1-B2))));
+a4A5 = (subs(a3A5,A2(w+(B2-B5)),subs(a3A2,w,w+(B2-B5))));
+a4A6 = (subs(a3A6,A2(w+(B2-B6)),subs(a3A2,w,w+(B2-B6))));
 
-coef_a4A1 = simplify(subs((a4A1-subs(a4A1,'A1(w)',0)),'A1(w)',1));
-coef_a4A5 = simplify(subs((a4A5-subs(a4A5,'A5(w)',0)),'A5(w)',1));
-coef_a4A6 = simplify(subs((a4A6-subs(a4A6,'A6(w)',0)),'A6(w)',1));
+coef_a4A1 = simplify(subs((a4A1-subs(a4A1,A1(w),0)),A1(w),1));
+coef_a4A5 = simplify(subs((a4A5-subs(a4A5,A5(w),0)),A5(w),1));
+coef_a4A6 = simplify(subs((a4A6-subs(a4A6,A6(w),0)),A6(w),1));
 
-a4A1 = simplify(subs(a4A1,'A1(w)',0) / (1-coef_a4A1));
-a4A5 = simplify(subs(a4A5,'A5(w)',0) / (1-coef_a4A5));
-a4A6 = simplify(subs(a4A6,'A6(w)',0) / (1-coef_a4A6));
+a4A1 = simplify(subs(a4A1,A1(w),0) / (1-coef_a4A1));
+a4A5 = simplify(subs(a4A5,A5(w),0) / (1-coef_a4A5));
+a4A6 = simplify(subs(a4A6,A6(w),0) / (1-coef_a4A6));
 
 %4 - Elimination of E5
-a5A1 = (subs(collect(a4A1,'A5(w-(B1-B5))'),'A5(w-(B1-B5))',subs(a4A5,w,w-(B1-B5))));
-a5A6 = (subs(collect(a4A6,'A5(w+(B5-B6))'),'A5(w+(B5-B6))',subs(a4A5,w,w+(B5-B6))));
+a5A1 = (subs(collect(a4A1,A5(w-(B1-B5))),A5(w-(B1-B5)),subs(a4A5,w,w-(B1-B5))));
+a5A6 = (subs(collect(a4A6,A5(w+(B5-B6))),A5(w+(B5-B6)),subs(a4A5,w,w+(B5-B6))));
 
-coef_a5A1 = simplify(subs((a5A1-subs(a5A1,'A1(w)',0)),'A1(w)',1));
-coef_a5A6 = simplify(subs((a5A6-subs(a5A6,'A6(w)',0)),'A6(w)',1));
+coef_a5A1 = simplify(subs((a5A1-subs(a5A1,A1(w),0)),A1(w),1));
+coef_a5A6 = simplify(subs((a5A6-subs(a5A6,A6(w),0)),A6(w),1));
 
-a5A1 = simplify(subs(a5A1,'A1(w)',0) / (1-coef_a5A1));
-a5A6 = simplify(subs(a5A6,'A6(w)',0) / (1-coef_a5A6));
+a5A1 = simplify(subs(a5A1,A1(w),0) / (1-coef_a5A1));
+a5A6 = simplify(subs(a5A6,A6(w),0) / (1-coef_a5A6));
 
 %5
-a6A1 = (subs(collect(a5A1,'A6(w-(B1-B6))'),'A6(w-(B1-B6))',subs(a5A6,w,w-(B1-B6))));
-a6A6 = (subs(collect(a5A6,'A1(w+(B1-B6))'),'A1(w+(B1-B6))',subs(a5A1,w,w+(B1-B6))));
+a6A1 = (subs(collect(a5A1,A6(w-(B1-B6))),A6(w-(B1-B6)),subs(a5A6,w,w-(B1-B6))));
+a6A6 = (subs(collect(a5A6,A1(w+(B1-B6))),A1(w+(B1-B6)),subs(a5A1,w,w+(B1-B6))));
 
 %end
-[a,b] = numden(simplify(subs(a6A1,'A1(w)',1)));
-[c,d] = numden(simplify(subs(a6A6,'A6(w)',1)));
+[a,b] = numden(simplify(subs(a6A1,A1(w),1)));
+[c,d] = numden(simplify(subs(a6A6,A6(w),1)));
 
 auxeq1 = b - a;
 auxeq6 = d - c;
@@ -320,70 +320,70 @@ disp('E1 and E6 calculated - auxiliary')
 
 %% E2 - E5
 %1 - Elimination of E3
-a2A1 = (subs(aA1,'A3(w-(B1-B3))',subs(aA3,w,w-(B1-B3))));
-a2A2 = (subs(aA2,'A3(w-(B2-B3))',subs(aA3,w,w-(B2-B3))));
-a2A4 = (subs(aA4,'A3(w+(B3-B4))',subs(aA3,w,w+(B3-B4))));
-a2A5 = (subs(aA5,'A3(w+(B3-B5))',subs(aA3,w,w+(B3-B5))));
-a2A6 = (subs(aA6,'A3(w+(B3-B6))',subs(aA3,w,w+(B3-B6))));
+a2A1 = (subs(aA1,A3(w-(B1-B3)),subs(aA3,w,w-(B1-B3))));
+a2A2 = (subs(aA2,A3(w-(B2-B3)),subs(aA3,w,w-(B2-B3))));
+a2A4 = (subs(aA4,A3(w+(B3-B4)),subs(aA3,w,w+(B3-B4))));
+a2A5 = (subs(aA5,A3(w+(B3-B5)),subs(aA3,w,w+(B3-B5))));
+a2A6 = (subs(aA6,A3(w+(B3-B6)),subs(aA3,w,w+(B3-B6))));
 
-coef_a2A1 = simplify(subs((a2A1-subs(a2A1,'A1(w)',0)),'A1(w)',1));
-coef_a2A2 = simplify(subs((a2A2-subs(a2A2,'A2(w)',0)),'A2(w)',1));
-coef_a2A4 = simplify(subs((a2A4-subs(a2A4,'A4(w)',0)),'A4(w)',1));
-coef_a2A5 = simplify(subs((a2A5-subs(a2A5,'A5(w)',0)),'A5(w)',1));
-coef_a2A6 = simplify(subs((a2A6-subs(a2A6,'A6(w)',0)),'A6(w)',1));
+coef_a2A1 = simplify(subs((a2A1-subs(a2A1,A1(w),0)),A1(w),1));
+coef_a2A2 = simplify(subs((a2A2-subs(a2A2,A2(w),0)),A2(w),1));
+coef_a2A4 = simplify(subs((a2A4-subs(a2A4,A4(w),0)),A4(w),1));
+coef_a2A5 = simplify(subs((a2A5-subs(a2A5,A5(w),0)),A5(w),1));
+coef_a2A6 = simplify(subs((a2A6-subs(a2A6,A6(w),0)),A6(w),1));
 
-a2A1 = subs(a2A1,'A1(w)',0) / (1-coef_a2A1);
-a2A2 = subs(a2A2,'A2(w)',0) / (1-coef_a2A2);
-a2A4 = subs(a2A4,'A4(w)',0) / (1-coef_a2A4);
-a2A5 = subs(a2A5,'A5(w)',0) / (1-coef_a2A5);
-a2A6 = subs(a2A6,'A6(w)',0) / (1-coef_a2A6);
+a2A1 = subs(a2A1,A1(w),0) / (1-coef_a2A1);
+a2A2 = subs(a2A2,A2(w),0) / (1-coef_a2A2);
+a2A4 = subs(a2A4,A4(w),0) / (1-coef_a2A4);
+a2A5 = subs(a2A5,A5(w),0) / (1-coef_a2A5);
+a2A6 = subs(a2A6,A6(w),0) / (1-coef_a2A6);
 
 %2 - Elimination of E4
-a3A1 = (subs(a2A1,'A4(w-(B1-B4))',subs(a2A4,w,w-(B1-B4))));
-a3A2 = (subs(a2A2,'A4(w-(B2-B4))',subs(a2A4,w,w-(B2-B4))));
-a3A5 = (subs(a2A5,'A4(w+(B4-B5))',subs(a2A4,w,w+(B4-B5))));
-a3A6 = (subs(a2A6,'A4(w+(B4-B6))',subs(a2A4,w,w+(B4-B6))));
+a3A1 = (subs(a2A1,A4(w-(B1-B4)),subs(a2A4,w,w-(B1-B4))));
+a3A2 = (subs(a2A2,A4(w-(B2-B4)),subs(a2A4,w,w-(B2-B4))));
+a3A5 = (subs(a2A5,A4(w+(B4-B5)),subs(a2A4,w,w+(B4-B5))));
+a3A6 = (subs(a2A6,A4(w+(B4-B6)),subs(a2A4,w,w+(B4-B6))));
 
-coef_a3A1 = simplify(subs((a3A1-subs(a3A1,'A1(w)',0)),'A1(w)',1));
-coef_a3A2 = simplify(subs((a3A2-subs(a3A2,'A2(w)',0)),'A2(w)',1));
-coef_a3A5 = simplify(subs((a3A5-subs(a3A5,'A5(w)',0)),'A5(w)',1));
-coef_a3A6 = simplify(subs((a3A6-subs(a3A6,'A6(w)',0)),'A6(w)',1));
+coef_a3A1 = simplify(subs((a3A1-subs(a3A1,A1(w),0)),A1(w),1));
+coef_a3A2 = simplify(subs((a3A2-subs(a3A2,A2(w),0)),A2(w),1));
+coef_a3A5 = simplify(subs((a3A5-subs(a3A5,A5(w),0)),A5(w),1));
+coef_a3A6 = simplify(subs((a3A6-subs(a3A6,A6(w),0)),A6(w),1));
 
-a3A1 = simplify(subs(a3A1,'A1(w)',0) / (1-coef_a3A1));
-a3A2 = simplify(subs(a3A2,'A2(w)',0) / (1-coef_a3A2));
-a3A5 = simplify(subs(a3A5,'A5(w)',0) / (1-coef_a3A5));
-a3A6 = simplify(subs(a3A6,'A6(w)',0) / (1-coef_a3A6));
+a3A1 = simplify(subs(a3A1,A1(w),0) / (1-coef_a3A1));
+a3A2 = simplify(subs(a3A2,A2(w),0) / (1-coef_a3A2));
+a3A5 = simplify(subs(a3A5,A5(w),0) / (1-coef_a3A5));
+a3A6 = simplify(subs(a3A6,A6(w),0) / (1-coef_a3A6));
 
 %3 - Elimination of E1
-a4A2 = (subs(a3A2,'A1(w+(B1-B2))',subs(a3A1,w,w+(B1-B2))));
-a4A5 = (subs(a3A5,'A1(w+(B1-B5))',subs(a3A1,w,w+(B1-B5))));
-a4A6 = (subs(a3A6,'A1(w+(B1-B6))',subs(a3A1,w,w+(B1-B6))));
+a4A2 = (subs(a3A2,A1(w+(B1-B2)),subs(a3A1,w,w+(B1-B2))));
+a4A5 = (subs(a3A5,A1(w+(B1-B5)),subs(a3A1,w,w+(B1-B5))));
+a4A6 = (subs(a3A6,A1(w+(B1-B6)),subs(a3A1,w,w+(B1-B6))));
 
-coef_a4A2 = simplify(subs((a4A2-subs(a4A2,'A2(w)',0)),'A2(w)',1));
-coef_a4A5 = simplify(subs((a4A5-subs(a4A5,'A5(w)',0)),'A5(w)',1));
-coef_a4A6 = simplify(subs((a4A6-subs(a4A6,'A6(w)',0)),'A6(w)',1));
+coef_a4A2 = simplify(subs((a4A2-subs(a4A2,A2(w),0)),A2(w),1));
+coef_a4A5 = simplify(subs((a4A5-subs(a4A5,A5(w),0)),A5(w),1));
+coef_a4A6 = simplify(subs((a4A6-subs(a4A6,A6(w),0)),A6(w),1));
 
-a4A2 = simplify(subs(a4A2,'A2(w)',0) / (1-coef_a4A2));
-a4A5 = simplify(subs(a4A5,'A5(w)',0) / (1-coef_a4A5));
-a4A6 = simplify(subs(a4A6,'A6(w)',0) / (1-coef_a4A6));
+a4A2 = simplify(subs(a4A2,A2(w),0) / (1-coef_a4A2));
+a4A5 = simplify(subs(a4A5,A5(w),0) / (1-coef_a4A5));
+a4A6 = simplify(subs(a4A6,A6(w),0) / (1-coef_a4A6));
 
 %4 - Elimination of E6
-a5A2 = (subs(collect(a4A2,'A6(w-(B2-B6))'),'A6(w-(B2-B6))',subs(a4A6,w,w-(B2-B6))));
-a5A5 = (subs(collect(a4A5,'A6(w-(B5-B6))'),'A6(w-(B5-B6))',subs(a4A6,w,w-(B5-B6))));
+a5A2 = (subs(collect(a4A2,A6(w-(B2-B6))),A6(w-(B2-B6)),subs(a4A6,w,w-(B2-B6))));
+a5A5 = (subs(collect(a4A5,A6(w-(B5-B6))),A6(w-(B5-B6)),subs(a4A6,w,w-(B5-B6))));
 
-coef_a5A2 = simplify(subs((a5A2-subs(a5A2,'A2(w)',0)),'A2(w)',1));
-coef_a5A5 = simplify(subs((a5A5-subs(a5A5,'A5(w)',0)),'A5(w)',1));
+coef_a5A2 = simplify(subs((a5A2-subs(a5A2,A2(w),0)),A2(w),1));
+coef_a5A5 = simplify(subs((a5A5-subs(a5A5,A5(w),0)),A5(w),1));
 
-a5A2 = simplify(subs(a5A2,'A2(w)',0) / (1-coef_a5A2));
-a5A5 = simplify(subs(a5A5,'A5(w)',0) / (1-coef_a5A5));
+a5A2 = simplify(subs(a5A2,A2(w),0) / (1-coef_a5A2));
+a5A5 = simplify(subs(a5A5,A5(w),0) / (1-coef_a5A5));
 
 %5
-a6A2 = (subs(collect(a5A2,'A5(w-(B2-B5))'),'A5(w-(B2-B5))',subs(a5A5,w,w-(B2-B5))));
-a6A5 = (subs(collect(a5A5,'A2(w+(B2-B5))'),'A2(w+(B2-B5))',subs(a5A2,w,w+(B2-B5))));
+a6A2 = (subs(collect(a5A2,A5(w-(B2-B5))),A5(w-(B2-B5)),subs(a5A5,w,w-(B2-B5))));
+a6A5 = (subs(collect(a5A5,A2(w+(B2-B5))),A2(w+(B2-B5)),subs(a5A2,w,w+(B2-B5))));
 
 %end
-[a,b] = numden(simplify(subs(a6A2,'A2(w)',1)));
-[c,d] = numden(simplify(subs(a6A5,'A5(w)',1)));
+[a,b] = numden(simplify(subs(a6A2,A2(w),1)));
+[c,d] = numden(simplify(subs(a6A5,A5(w),1)));
 
 auxeq2 = b - a;
 auxeq5 = d - c;
@@ -495,7 +495,7 @@ disp('Initial value condition...')
 syms  z
 
 clear A1 A2 A3 A4 A5 A6
-A1 = sym('A1(z)'); A2 = sym('A2(z)'); A3 = sym('A3(z)'); A4 = sym('A4(z)'); A5 = sym('A5(z)'); A6 = sym('A6(z)');
+syms A1(w) A2(w) A3(w) A4(w) A5(w) A6(w)
 
 dA1 = -1i*k12*A2*exp( 1i*(dB12)*z)-1i*k13*A3*exp( 1i*(dB13)*z)-1i*k14*A4*exp( 1i*(dB14)*z)-1i*k15*A5*exp( 1i*(dB15)*z)-1i*k16*A6*exp( 1i*(dB16)*z);
 dA2 = -1i*k12*A1*exp(-1i*(dB12)*z)-1i*k23*A3*exp( 1i*(dB23)*z)-1i*k24*A4*exp( 1i*(dB24)*z)-1i*k25*A5*exp( 1i*(dB25)*z)-1i*k26*A6*exp( 1i*(dB26)*z);
@@ -569,7 +569,7 @@ for ll = 1:5
 end
 
 
-fid = fopen([semiAnalyticalSolutions6modes,'.txt'], 'w');
+fid = fopen(['semiAnalyticalSolutions6modes','.txt'], 'w');
 
 %% C's
 for zz = 1:6
@@ -778,4 +778,4 @@ fclose(fid);
 %             fprintf(fid, [str(idx(end)+1:len)]);
 %         end
     
-    
+   
