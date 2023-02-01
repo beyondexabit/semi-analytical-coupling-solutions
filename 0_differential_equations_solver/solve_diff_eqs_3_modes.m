@@ -1,11 +1,27 @@
 clc
 clear
 
+%% WARNING
+% Some changes happened in the way of creating and using symbolic
+% functions. I had to remove some apostrophes and to change the declaration
+% of some symbolic functions. The following line (from [1]) explains the
+% changes:
+
+% "Support for character vectors that are not valid variable names and that
+% do not define a number has been removed. To create symbolic expressions,
+% first create symbolic variables, and then use operations on them. For
+% example, use syms x; x + 1 instead of sym('x + 1'), exp(sym(pi)) instead
+% of sym('exp(pi)'), and syms f(var1,...,varN) instead of f(var1,...,varN)
+% = sym('f(var1,...,varN)')."
+
+% REFERENCES:
+% [1]: https://www.mathworks.com/help/symbolic/sym.html
+
 %% ODE symbolic math solution
 %% Solve coupled differential equation system
 syms k12 k13 k23 B1 B2 B3 w
 
-A1 = sym('A1(w)'); A2 = sym('A2(w)'); A3 = sym('A3(w)');
+syms A1(w) A2(w) A3(w)
 
 %% E2 E3
 %1
@@ -14,39 +30,39 @@ aA2 = (-1*k12*subs(A1,w,w+(B1-B2))-1*k23*subs(A3,w,w-(B2-B3)))/w;
 aA3 = (-1*k13*subs(A1,w,w+(B1-B3))-1*k23*subs(A2,w,w+(B2-B3)))/w;
 
 %% 1 - Elimination of Eq1 of Eq2 and Eq3
-a2A2 = (subs(aA2,'A1(w+(B1-B2))',subs(aA1,w,w+(B1-B2))));
-a2A3 = (subs(aA3,'A1(w+(B1-B3))',subs(aA1,w,w+(B1-B3))));
+a2A2 = (subs(aA2,A1(w+(B1-B2)),subs(aA1,w,w+(B1-B2))));
+a2A3 = (subs(aA3,A1(w+(B1-B3)),subs(aA1,w,w+(B1-B3))));
 
-coef_a2A2 = simplify(subs((a2A2-subs(a2A2,'A2(w)',0)),'A2(w)',1));
-coef_a2A3 = simplify(subs((a2A3-subs(a2A3,'A3(w)',0)),'A3(w)',1));
+coef_a2A2 = simplify(subs((a2A2-subs(a2A2,A2(w),0)),A2(w),1));
+coef_a2A3 = simplify(subs((a2A3-subs(a2A3,A3(w),0)),A3(w),1));
 
-a2A2 = subs(a2A2,'A2(w)',0) / (1-coef_a2A2);
-a2A3 = subs(a2A3,'A3(w)',0) / (1-coef_a2A3);
+a2A2 = subs(a2A2,A2(w),0) / (1-coef_a2A2);
+a2A3 = subs(a2A3,A3(w),0) / (1-coef_a2A3);
 
 %3
-a3A2 = subs(a2A2,'A3(w-(B2-B3))',subs(a2A3,w,w-(B2-B3)));
-a3A3 = subs(a2A3,'A2(w+(B2-B3))',subs(a2A2,w,w+(B2-B3)));
+a3A2 = subs(a2A2,A3(w-(B2-B3)),subs(a2A3,w,w-(B2-B3)));
+a3A3 = subs(a2A3,A2(w+(B2-B3)),subs(a2A2,w,w+(B2-B3)));
 
 %end
-eq2 = (1-subs(a3A2,'A2(w)',1));
-eq3 = (1-subs(a3A3,'A3(w)',1));
+eq2 = (1-subs(a3A2,A2(w),1));
+eq3 = (1-subs(a3A3,A3(w),1));
 
 %% E1
 %% 1 - Elimination of Eq2 of Eq1 and Eq3
-a2A1 = (subs(aA1,'A2(w-(B1-B2))',subs(aA2,w,w-(B1-B2))));
-a2A3 = (subs(aA3,'A2(w+(B2-B3))',subs(aA2,w,w+(B2-B3))));
+a2A1 = (subs(aA1,A2(w-(B1-B2)),subs(aA2,w,w-(B1-B2))));
+a2A3 = (subs(aA3,A2(w+(B2-B3)),subs(aA2,w,w+(B2-B3))));
 
-coef_a2A1 = subs((a2A1-subs(a2A1,'A1(w)',0)),'A1(w)',1);
-coef_a2A3 = subs((a2A3-subs(a2A3,'A3(w)',0)),'A3(w)',1);
+coef_a2A1 = subs((a2A1-subs(a2A1,A1(w),0)),A1(w),1);
+coef_a2A3 = subs((a2A3-subs(a2A3,A3(w),0)),A3(w),1);
 
-a2A1 = subs(a2A1,'A1(w)',0) / (1-coef_a2A1);
-a2A3 = subs(a2A3,'A3(w)',0) / (1-coef_a2A3);
+a2A1 = subs(a2A1,A1(w),0) / (1-coef_a2A1);
+a2A3 = subs(a2A3,A3(w),0) / (1-coef_a2A3);
 
 %2
-a3A1 = subs(a2A1,'A3(w-(B1-B3))',subs(a2A3,w,w-(B1-B3)));
+a3A1 = subs(a2A1,A3(w-(B1-B3)),subs(a2A3,w,w-(B1-B3)));
 
 %end
-eq1 = (1-subs(a3A1,'A1(w)',1));
+eq1 = (1-subs(a3A1,A1(w),1));
 
 %% Charateristic Polinomial Simplification
 [N1,D1] = numden(eq1);
@@ -99,7 +115,7 @@ CC3 = C3*[X^4 X^3 X^2 X^1 X^0].';
 syms  z
 
 clear A1 A2 A3 
-A1 = sym('A1(z)'); A2 = sym('A2(z)'); A3 = sym('A3(z)');
+syms A1(z) A2(z) A3(z)
 
 dA1 = -1i*k12*A2*exp( 1i*(dB12)*z)-1i*k13*A3*exp( 1i*(dB13)*z);
 dA2 = -1i*k12*A1*exp(-1i*(dB12)*z)-1i*k23*A3*exp( 1i*(dB23)*z);
@@ -139,20 +155,20 @@ d3A3 = (subs(d3A3,diff(A1,z),dA1));
 d3A3 = (subs(d3A3,diff(A2,z),dA2));
 d3A3 = (subs(d3A3,diff(A3,z),dA3));
 
-BB1 = [subs(A1,'z',0)
-       subs(dA1,'z',0)
-       subs(d2A1,'z',0)
-       subs(d3A1,'z',0)];
+BB1 = [subs(A1,z,0)
+       subs(dA1,z,0)
+       subs(d2A1,z,0)
+       subs(d3A1,z,0)];
 
-BB2 = [subs(A2,'z',0)
-       subs(dA2,'z',0)
-       subs(d2A2,'z',0)
-       subs(d3A2,'z',0)];
+BB2 = [subs(A2,z,0)
+       subs(dA2,z,0)
+       subs(d2A2,z,0)
+       subs(d3A2,z,0)];
 
-BB3 = [subs(A3,'z',0)
-       subs(dA3,'z',0)
-       subs(d2A3,'z',0)
-       subs(d3A3,'z',0)];
+BB3 = [subs(A3,z,0)
+       subs(dA3,z,0)
+       subs(d2A3,z,0)
+       subs(d3A3,z,0)];
    
 %% Constants calculation
 
@@ -301,11 +317,9 @@ fclose(fid);
 %             idx=[(ll-1)*80+1:(ll-1)*80+80];
 %             fprintf(fid, [str(idx) '...\n']);
 %         end
-        
+%         
 %         if kk ~= 6
 %             fprintf(fid, [str(idx(end)+1:len) '\n\n']);
 %         else
 %             fprintf(fid, [str(idx(end)+1:len)]);
 %         end
-    
-    

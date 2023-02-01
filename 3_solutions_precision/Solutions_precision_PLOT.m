@@ -2,7 +2,7 @@ clear
 clc
 close all
 
-addpath(genpath('../../suplement_files'));
+addpath(genpath('../'));
 
 %% Physical constants
 e0      = 8.854187817e-12;

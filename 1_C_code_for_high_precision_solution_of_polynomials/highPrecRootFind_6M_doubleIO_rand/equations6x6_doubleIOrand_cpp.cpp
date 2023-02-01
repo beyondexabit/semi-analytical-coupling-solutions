@@ -1,6 +1,7 @@
+// // Windows compilation commands. Untested with most recent Windows and Matlab version.
 // mex -c bairstow1_cpp.cpp -lmpfr
 // mex -c bubbleSort.cpp -lmpfr
-// mex -c Gsolve.cpp -lmpfr
+// mex -c GSolve.cpp -lmpfr
 // mex -c gelimd2_cpp.cpp -lmpfr
 // mex -c polyroots_cpp.cpp -lmpfr
 // mex -c poly_division_cpp.cpp -lmpfr
@@ -12,7 +13,26 @@
 // mex -c equations6x6_C5_cpp.cpp -lmpfr
 // mex -c equations6x6_C6_cpp.cpp -lmpfr
 // mex -c equations6x6_B_cpp.cpp  -lmpfr
-// mex equations6x6_doubleIOrand_cpp.cpp gelimd2_cpp.obj polyroots_alternative_cpp.obj polyroots_cpp.obj bairstow1_cpp.obj poly_division_cpp.obj Gsolve.obj bubbleSort.obj equations6x6_B_cpp.obj equations6x6_C1_cpp.obj equations6x6_C2_cpp.obj equations6x6_C3_cpp.obj equations6x6_C4_cpp.obj equations6x6_C5_cpp.obj equations6x6_C6_cpp.obj -lmpfr
+// mex equations6x6_doubleIOrand_cpp.cpp gelimd2_cpp.obj polyroots_alternative_cpp.obj polyroots_cpp.obj bairstow1_cpp.obj poly_division_cpp.obj GSolve.obj bubbleSort.obj equations6x6_B_cpp.obj equations6x6_C1_cpp.obj equations6x6_C2_cpp.obj equations6x6_C3_cpp.obj equations6x6_C4_cpp.obj equations6x6_C5_cpp.obj equations6x6_C6_cpp.obj -lmpfr
+// // // 
+
+// // Linux compilation commands. Tested and working with Kubuntu 22.04, Matlab R2022b, libgmp 6.2.1, libgmp-dev 6.2.1, libmpfr6 4.1.0, libmpfr-dev 4.1.0, mpfrc++-dev 3.6.9.
+// mex -c bairstow1_cpp.cpp
+// mex -c bubbleSort.cpp
+// mex -c GSolve.cpp
+// mex -c gelimd2_cpp.cpp
+// mex -c polyroots_cpp.cpp
+// mex -c poly_division_cpp.cpp
+// mex -c polyroots_alternative_cpp.cpp
+// mex -c equations6x6_C1_cpp.cpp
+// mex -c equations6x6_C2_cpp.cpp
+// mex -c equations6x6_C3_cpp.cpp
+// mex -c equations6x6_C4_cpp.cpp
+// mex -c equations6x6_C5_cpp.cpp
+// mex -c equations6x6_C6_cpp.cpp
+// mex -c equations6x6_B_cpp.cpp
+// mex equations6x6_doubleIOrand_cpp.cpp gelimd2_cpp.o polyroots_alternative_cpp.o polyroots_cpp.o bairstow1_cpp.o poly_division_cpp.o GSolve.o bubbleSort.o equations6x6_B_cpp.o equations6x6_C1_cpp.o equations6x6_C2_cpp.o equations6x6_C3_cpp.o equations6x6_C4_cpp.o equations6x6_C5_cpp.o equations6x6_C6_cpp.o -lmpfr
+
 #include <iostream>
 #include <matrix.h>
 #include <mex.h>

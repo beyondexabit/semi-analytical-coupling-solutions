@@ -231,8 +231,8 @@ void get_quads(mpreal *a,int n,mpreal *quad,mpreal *x)
     delete [] z;
     delete [] b;
 }
-
-void   polyroots_crbond_cpp(mpreal *a,int n      ,int max_iter , mpreal eps,mpreal *wr) /* Input variables */
+// This was called polyroots_crbond_cpp. I changed it to polyroots_alternative_cpp cause it seems it has the same inputs as the polyroots_alternative_cpp and otherwise there's no such declaration in the library.
+void   polyroots_alternative_cpp(mpreal *a,int n      ,int max_iter , mpreal eps,mpreal *wr) /* Input variables */
 {
     mpreal::set_default_prec(mpfr::digits2bits(DIGITS));
     mpreal x[21],wi[21],quad[2],err,t;

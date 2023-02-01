@@ -6,7 +6,7 @@ close all
 %% Solve coupled differential equation system
 syms k12 k13 k14 k23 k24 k34 B1 B2 B3 B4 w
 
-A1 = sym('A1(w)'); A2 = sym('A2(w)'); A3 = sym('A3(w)'); A4 = sym('A4(w)');
+syms A1(w) A2(w) A3(w) A4(w)
 
 %% E3 - E4
 %1
@@ -16,73 +16,73 @@ aA3 = (-1*k13*subs(A1,w,w+(B1-B3))-1*k23*subs(A2,w,w+(B2-B3))-1*k34*subs(A4,w,w-
 aA4 = (-1*k14*subs(A1,w,w+(B1-B4))-1*k24*subs(A2,w,w+(B2-B4))-1*k34*subs(A3,w,w+(B3-B4)))/w;
 
 %2
-a2A2 = (subs(aA2,'A1(w+(B1-B2))',subs(aA1,w,w+(B1-B2))));
-a2A3 = (subs(aA3,'A1(w+(B1-B3))',subs(aA1,w,w+(B1-B3))));
-a2A4 = (subs(aA4,'A1(w+(B1-B4))',subs(aA1,w,w+(B1-B4))));
+a2A2 = (subs(aA2, A1(w+(B1-B2)) ,subs(aA1,w,w+(B1-B2))));
+a2A3 = (subs(aA3, A1(w+(B1-B3)) ,subs(aA1,w,w+(B1-B3))));
+a2A4 = (subs(aA4, A1(w+(B1-B4)) ,subs(aA1,w,w+(B1-B4))));
 
-coef_a2A2 = simplify(subs((a2A2-subs(a2A2,'A2(w)',0)),'A2(w)',1));
-coef_a2A3 = simplify(subs((a2A3-subs(a2A3,'A3(w)',0)),'A3(w)',1));
-coef_a2A4 = simplify(subs((a2A4-subs(a2A4,'A4(w)',0)),'A4(w)',1));
+coef_a2A2 = simplify(subs((a2A2-subs(a2A2,A2(w),0)),A2(w),1));
+coef_a2A3 = simplify(subs((a2A3-subs(a2A3,A3(w),0)),A3(w),1));
+coef_a2A4 = simplify(subs((a2A4-subs(a2A4,A4(w),0)),A4(w),1));
 
-a2A2 = subs(a2A2,'A2(w)',0) / (1-coef_a2A2);
-a2A3 = subs(a2A3,'A3(w)',0) / (1-coef_a2A3);
-a2A4 = subs(a2A4,'A4(w)',0) / (1-coef_a2A4);
+a2A2 = subs(a2A2,A2(w),0) / (1-coef_a2A2);
+a2A3 = subs(a2A3,A3(w),0) / (1-coef_a2A3);
+a2A4 = subs(a2A4,A4(w),0) / (1-coef_a2A4);
 
 %3
-a3A3 = (subs(a2A3,'A2(w+(B2-B3))',subs(a2A2,w,w+(B2-B3))));
-a3A4 = (subs(a2A4,'A2(w+(B2-B4))',subs(a2A2,w,w+(B2-B4))));
+a3A3 = (subs(a2A3,A2(w+(B2-B3)),subs(a2A2,w,w+(B2-B3))));
+a3A4 = (subs(a2A4,A2(w+(B2-B4)),subs(a2A2,w,w+(B2-B4))));
 
-coef_a3A3 = simplify(subs((a3A3-subs(a3A3,'A3(w)',0)),'A3(w)',1));
-coef_a3A4 = simplify(subs((a3A4-subs(a3A4,'A4(w)',0)),'A4(w)',1));
+coef_a3A3 = simplify(subs((a3A3-subs(a3A3,A3(w),0)),A3(w),1));
+coef_a3A4 = simplify(subs((a3A4-subs(a3A4,A4(w),0)),A4(w),1));
 
-a3A3 = simplify(subs(a3A3,'A3(w)',0) / (1-coef_a3A3));
-a3A4 = simplify(subs(a3A4,'A4(w)',0) / (1-coef_a3A4));
+a3A3 = simplify(subs(a3A3,A3(w),0) / (1-coef_a3A3));
+a3A4 = simplify(subs(a3A4,A4(w),0) / (1-coef_a3A4));
 
 %4
-a4A3 = simplify(subs(a3A3,'A4(w-(B3-B4))',subs(a3A4,w,w-(B3-B4))));
-a4A4 = simplify(subs(a3A4,'A3(w+(B3-B4))',subs(a3A3,w,w+(B3-B4))));
+a4A3 = simplify(subs(a3A3,A4(w-(B3-B4)),subs(a3A4,w,w-(B3-B4))));
+a4A4 = simplify(subs(a3A4,A3(w+(B3-B4)),subs(a3A3,w,w+(B3-B4))));
 
 %end
-[NR3,DR3] = numden(subs(a4A3,'A3(w)',1));
-[NR4,DR4] = numden(subs(a4A4,'A4(w)',1));
+[NR3,DR3] = numden(subs(a4A3,A3(w),1));
+[NR4,DR4] = numden(subs(a4A4,A4(w),1));
 
-eq3 = (1-subs(a4A3,'A3(w)',1));
-eq4 = (1-subs(a4A4,'A4(w)',1));
+eq3 = (1-subs(a4A3,A3(w),1));
+eq4 = (1-subs(a4A4,A4(w),1));
 
 %% E1 - E2
 %1 - Elimination of E3
-a2A1 = (subs(aA1,'A3(w-(B1-B3))',subs(aA3,w,w-(B1-B3))));
-a2A2 = (subs(aA2,'A3(w-(B2-B3))',subs(aA3,w,w-(B2-B3))));
-a2A4 = (subs(aA4,'A3(w+(B3-B4))',subs(aA3,w,w+(B3-B4))));
+a2A1 = (subs(aA1,A3(w-(B1-B3)),subs(aA3,w,w-(B1-B3))));
+a2A2 = (subs(aA2,A3(w-(B2-B3)),subs(aA3,w,w-(B2-B3))));
+a2A4 = (subs(aA4,A3(w+(B3-B4)),subs(aA3,w,w+(B3-B4))));
 
-coef_a2A1 = simplify(subs((a2A1-subs(a2A1,'A1(w)',0)),'A1(w)',1));
-coef_a2A2 = simplify(subs((a2A2-subs(a2A2,'A2(w)',0)),'A2(w)',1));
-coef_a2A4 = simplify(subs((a2A4-subs(a2A4,'A4(w)',0)),'A4(w)',1));
+coef_a2A1 = simplify(subs((a2A1-subs(a2A1,A1(w),0)),A1(w),1));
+coef_a2A2 = simplify(subs((a2A2-subs(a2A2,A2(w),0)),A2(w),1));
+coef_a2A4 = simplify(subs((a2A4-subs(a2A4,A4(w),0)),A4(w),1));
 
-a2A1 = subs(a2A1,'A1(w)',0) / (1-coef_a2A1);
-a2A2 = subs(a2A2,'A2(w)',0) / (1-coef_a2A2);
-a2A4 = subs(a2A4,'A4(w)',0) / (1-coef_a2A4);
+a2A1 = subs(a2A1,A1(w),0) / (1-coef_a2A1);
+a2A2 = subs(a2A2,A2(w),0) / (1-coef_a2A2);
+a2A4 = subs(a2A4,A4(w),0) / (1-coef_a2A4);
 
 %2 - Elimination of E4
-a3A1 = (subs(a2A1,'A4(w-(B1-B4))',subs(a2A4,w,w-(B1-B4))));
-a3A2 = (subs(a2A2,'A4(w-(B2-B4))',subs(a2A4,w,w-(B2-B4))));
+a3A1 = (subs(a2A1,A4(w-(B1-B4)),subs(a2A4,w,w-(B1-B4))));
+a3A2 = (subs(a2A2,A4(w-(B2-B4)),subs(a2A4,w,w-(B2-B4))));
 
-coef_a3A1 = simplify(subs((a3A1-subs(a3A1,'A1(w)',0)),'A1(w)',1));
-coef_a3A2 = simplify(subs((a3A2-subs(a3A2,'A2(w)',0)),'A2(w)',1));
+coef_a3A1 = simplify(subs((a3A1-subs(a3A1,A1(w),0)),A1(w),1));
+coef_a3A2 = simplify(subs((a3A2-subs(a3A2,A2(w),0)),A2(w),1));
 
-a3A1 = simplify(subs(a3A1,'A1(w)',0) / (1-coef_a3A1));
-a3A2 = simplify(subs(a3A2,'A2(w)',0) / (1-coef_a3A2));
+a3A1 = simplify(subs(a3A1,A1(w),0) / (1-coef_a3A1));
+a3A2 = simplify(subs(a3A2,A2(w),0) / (1-coef_a3A2));
 
 %3
-a4A1 = simplify(subs(a3A1,'A2(w-(B1-B2))',subs(a3A2,w,w-(B1-B2))));
-a4A2 = simplify(subs(a3A2,'A1(w+(B1-B2))',subs(a3A1,w,w+(B1-B2))));
+a4A1 = simplify(subs(a3A1,A2(w-(B1-B2)),subs(a3A2,w,w-(B1-B2))));
+a4A2 = simplify(subs(a3A2,A1(w+(B1-B2)),subs(a3A1,w,w+(B1-B2))));
 
 %end
-[NR1,DR1] = numden(subs(a4A1,'A1(w)',1));
-[NR2,DR2] = numden(subs(a4A2,'A2(w)',1));
+[NR1,DR1] = numden(subs(a4A1,A1(w),1));
+[NR2,DR2] = numden(subs(a4A2,A2(w),1));
 
-eq1 = (1-subs(a4A1,'A1(w)',1));
-eq2 = (1-subs(a4A2,'A2(w)',1));
+eq1 = (1-subs(a4A1,A1(w),1));
+eq2 = (1-subs(a4A2,A2(w),1));
 
 %% Charateristic Polinomial Simplification
 [N1,D1] = numden(eq1);
@@ -163,7 +163,7 @@ CC4 = C4*[X^6 X^5 X^4 X^3 X^2 X^1 X^0].';
 syms  z
 
 clear A1 A2 A3 A4
-A1 = sym('A1(z)'); A2 = sym('A2(z)'); A3 = sym('A3(z)'); A4 = sym('A4(z)');
+syms A1(z) A2(z) A3(z) A4(z)
 
 dA1 = -1i*k12*A2*exp( 1i*(dB12)*z)-1i*k13*A3*exp( 1i*(dB13)*z)-1i*k14*A4*exp( 1i*(dB14)*z);
 dA2 = -1i*k12*A1*exp(-1i*(dB12)*z)-1i*k23*A3*exp( 1i*(dB23)*z)-1i*k24*A4*exp( 1i*(dB24)*z);
@@ -274,33 +274,33 @@ d5A4 = (subs(d5A4,diff(A2,z),dA2));
 d5A4 = (subs(d5A4,diff(A3,z),dA3));
 d5A4 = (subs(d5A4,diff(A4,z),dA4));
 
-BB1 = [subs(A1,'z',0)
-       subs(dA1,'z',0)
-       subs(d2A1,'z',0)
-       subs(d3A1,'z',0)
-       subs(d4A1,'z',0)
-       subs(d5A1,'z',0)];
+BB1 = [subs(A1,z,0)
+       subs(dA1,z,0)
+       subs(d2A1,z,0)
+       subs(d3A1,z,0)
+       subs(d4A1,z,0)
+       subs(d5A1,z,0)];
 
-BB2 = [subs(A2,'z',0)
-       subs(dA2,'z',0)
-       subs(d2A2,'z',0)
-       subs(d3A2,'z',0)
-       subs(d4A2,'z',0)
-       subs(d5A2,'z',0)];
+BB2 = [subs(A2,z,0)
+       subs(dA2,z,0)
+       subs(d2A2,z,0)
+       subs(d3A2,z,0)
+       subs(d4A2,z,0)
+       subs(d5A2,z,0)];
 
-BB3 = [subs(A3,'z',0)
-       subs(dA3,'z',0)
-       subs(d2A3,'z',0)
-       subs(d3A3,'z',0)
-       subs(d4A3,'z',0)
-       subs(d5A3,'z',0)];
+BB3 = [subs(A3,z,0)
+       subs(dA3,z,0)
+       subs(d2A3,z,0)
+       subs(d3A3,z,0)
+       subs(d4A3,z,0)
+       subs(d5A3,z,0)];
    
-BB4 = [subs(A4,'z',0)
-       subs(dA4,'z',0)
-       subs(d2A4,'z',0)
-       subs(d3A4,'z',0)
-       subs(d4A4,'z',0)
-       subs(d5A4,'z',0)];
+BB4 = [subs(A4,z,0)
+       subs(dA4,z,0)
+       subs(d2A4,z,0)
+       subs(d3A4,z,0)
+       subs(d4A4,z,0)
+       subs(d5A4,z,0)];
 
 
 printEquations4modes
